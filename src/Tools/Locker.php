@@ -28,8 +28,8 @@ class Locker
 
         $cmdArgs = ['set', $this->mutex, $key, 'EX', $seconds, 'NX'];
 
-        while (!$this->redis->executeRaw($cmdArgs)) {
-            sleep(1);
+        if (!$this->redis->executeRaw($cmdArgs)) {
+            throw new \Exception('Worker already running', 1);
         }
 
         return $key;

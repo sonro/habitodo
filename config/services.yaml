@@ -36,3 +36,7 @@ services:
         arguments: 
             $mutex: '%env(APP_PREFIX)%-lock'
 
+    App\Worker\Worker:
+        arguments: 
+            $prefix: '%env(APP_PREFIX)%-worker'
+

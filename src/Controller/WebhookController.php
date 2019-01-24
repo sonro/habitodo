@@ -6,8 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Psr\Log\LoggerInterface;
-use App\Tools\RedisInterface;
-use App\Worker\Worker;
 
 class WebhookController extends AbstractController
 {
@@ -16,15 +14,10 @@ class WebhookController extends AbstractController
      */
     private $logger;
 
-    /**
-     * @var RedisInterface
-     */
-    private $redis;
-
-    public function __construct(LoggerInterface $logger, RedisInterface $redis)
+    public function __construct(LoggerInterface $logger)
     {
         $this->logger = $logger;
-        $this->redis = $redis;
+        // $this->redis = $redis;
     }
 
     /**
@@ -44,12 +37,9 @@ class WebhookController extends AbstractController
     /**
      * @Route("/webhook/custom", methods={"POST"})
      */
-    public function custom(Request $request, Worker $worker)
+    public function custom(Request $request)
     {
         $data = json_decode($request->getContent(), true);
-
-        $worker->run();
-        $worker->stop();
 
         return $this->json($data);
     }
