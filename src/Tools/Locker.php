@@ -22,14 +22,17 @@ class Locker
         $this->mutex = $mutex;
     }
 
-    public function lock(int $seconds = 30): string
+    public function lock(int $seconds = 30, bool $block = false): string
     {
         $key = random_bytes(8);
 
         $cmdArgs = ['set', $this->mutex, $key, 'EX', $seconds, 'NX'];
 
-        if (!$this->redis->executeRaw($cmdArgs)) {
-            throw new \Exception('Worker already running', 1);
+        while (!$this->redis->executeRaw($cmdArgs)) {
+            if (!$block) {
+                throw new \Exception('Worker already running', 1);
+            }
+            sleep(1);
         }
 
         return $key;

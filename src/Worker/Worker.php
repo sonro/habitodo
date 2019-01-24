@@ -48,20 +48,20 @@ class Worker
     public function run(): int
     {
         $errorCode = 0;
-        $lockerKey = 0;
+        $lockerKey = null;
 
         try {
             // assign id and aquire lock
             $workerId = $this->redis->incr($this->prefix.'-id');
             $this->logger->info('Worker created', ['workerId' => $workerId]);
-            $lockerKey = $this->locker->lock();
+            $lockerKey = $this->locker->lock(30, true);
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage(), ['workerId', $workerId]);
             $errorCode = $e->getCode();
         }
 
         // unlock if aquired
-        if ($lockerKey) {
+        if ($lockerKey !== null) {
             $this->locker->unlock($lockerKey);
         }
         $this->logger->info('Worker stopped', ['workerId' => $workerId]);
