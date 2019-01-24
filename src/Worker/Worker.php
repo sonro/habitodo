@@ -5,6 +5,7 @@ namespace App\Worker;
 use App\Tools\Locker;
 use Psr\Log\LoggerInterface;
 use Predis\Client;
+use App\Tools\CredentialsInterface;
 
 class Worker
 {
@@ -29,6 +30,11 @@ class Worker
     private $redis;
 
     /**
+     * @var CredentialsInterface
+     */
+    private $credentials;
+
+    /**
      * @var string
      */
     private $prefix;
@@ -37,12 +43,14 @@ class Worker
         Locker $locker,
         LoggerInterface $logger,
         Client $redis,
+        CredentialsInterface $credentials,
         string $prefix
     ) {
         $this->locker = $locker;
         $this->logger = $logger;
         $this->redis = $redis;
         $this->prefix = $prefix;
+        $this->credentials = $credentials;
     }
 
     public function run(): int

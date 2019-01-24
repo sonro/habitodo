@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Psr\Log\LoggerInterface;
+use Predis\Client;
+use App\Tools\CredentialsInterface;
 
 class WebhookController extends AbstractController
 {
@@ -14,10 +16,31 @@ class WebhookController extends AbstractController
      */
     private $logger;
 
-    public function __construct(LoggerInterface $logger)
-    {
+    /**
+     * @var Client
+     */
+    private $redis;
+
+    /**
+     * @var CredentialsInterface
+     */
+    private $credentials;
+
+    /**
+     * @var string
+     */
+    private $queueKey;
+
+    public function __construct(
+        LoggerInterface $logger,
+        Client $redis,
+        CredentialsInterface $credentials,
+        string $queueKey
+    ) {
         $this->logger = $logger;
-        // $this->redis = $redis;
+        $this->redis = $redis;
+        $this->credentials = $credentials;
+        $this->queueKey = $queueKey;
     }
 
     /**
