@@ -8,6 +8,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use Psr\Log\LoggerInterface;
 use Predis\Client;
 use App\Tools\CredentialsInterface;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class WebhookController extends AbstractController
 {
@@ -62,8 +65,21 @@ class WebhookController extends AbstractController
      */
     public function custom(Request $request)
     {
-        $data = json_decode($request->getContent(), true);
+        $this->checkRequest($request);
 
-        return $this->json($data);
+        return new Response('good');
+    }
+
+    private function checkRequest(Request $request)
+    {
+        $queryToken = $request->query->get('token');
+        $webhookToken = $this->credentials->getWebhookToken();
+        if ($queryToken !== $webhookToken) {
+            throw new AccessDeniedHttpException('Invalid webhook token');
+        }
+
+        if ($request->headers->get('Content-Type') !== 'application/json') {
+            throw new BadRequestHttpException('Must be JSON');
+        }
     }
 }
