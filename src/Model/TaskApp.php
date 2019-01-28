@@ -2,24 +2,34 @@
 
 namespace App\Model;
 
+use JMS\Serializer\Annotation as JMS;
+
 class TaskApp
 {
     /**
+     * @JMS\Type("string")
+     *
      * @var string
      */
     private $baseUri;
 
     /**
+     * @JMS\Type("string")
+     *
      * @var string
      */
     private $apiToken;
 
     /**
+     * @JMS\Type("string")
+     *
      * @var string|null
      */
     private $userAgent;
 
     /**
+     * @JMS\Type("string")
+     *
      * @var string|null
      */
     private $clientSecret;

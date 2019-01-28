@@ -2,19 +2,27 @@
 
 namespace App\Model;
 
+use JMS\Serializer\Annotation as JMS;
+
 class Credentials
 {
     /**
+     * @JMS\Type("string")
+     *
      * @var string
      */
     private $webhookToken;
 
     /**
+     * @JMS\Type("array<string, App\Model\TaskApp>")
+     *
      * @var array
      */
     private $taskApps;
 
     /**
+     * @JMS\Type("array<string, App\Model\Project>")
+     *
      * @var array
      */
     private $projects;

@@ -3,7 +3,7 @@
 namespace App\Tools;
 
 use App\Model\Credentials;
-use Symfony\Component\Serializer\SerializerInterface;
+use JMS\Serializer\SerializerInterface;
 
 class CredentialsInterface
 {
@@ -15,8 +15,7 @@ class CredentialsInterface
     public function __construct(SerializerInterface $serilaizer, $credentialsFile)
     {
         $json = file_get_contents($credentialsFile);
-        $this->credentials =
-            $serilaizer->deserialize($json, Credentials::class, 'json');
+        $this->credentials = $serilaizer->deserialize($json, Credentials::class, 'json');
     }
 
     /**

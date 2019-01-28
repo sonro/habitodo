@@ -59,30 +59,6 @@ class Task
      */
     private $dateCompleted;
 
-    // private function hydrate(array $payload)
-    // {
-    //     $this->metadata->setStatus(Status::HYDRATING);
-    //     $source = $this->metadata->getTaskSource();
-    //     $translatedPayload = Translator::translate($payload, $source);
-    //     foreach ($translatedPayload as $key => $value) {
-    //         $this->$key = $value;
-    //     }
-    //     $this->createdAt = new \DateTime($this->createdAt);
-    //     if ($this->updatedAt !== null) {
-    //         $this->updatedAt = new \DateTime($this->updatedAt);
-    //     }
-    //     if ($this->dateCompleted !== null) {
-    //         $this->dateCompleted = new \DateTime($this->dateCompleted);
-    //     }
-    //     if ($this->dueDate !== null) {
-    //         $this->dueDate = new \DateTime($this->dueDate);
-    //     }
-
-    //     $this->project = Project::getProject($this->project, $source);
-
-    //     $this->metadata->setStatus(Status::READY);
-    // }
-
     /**
      * Get the value of title.
      *
