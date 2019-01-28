@@ -2,86 +2,75 @@
 
 namespace App\Model;
 
+use Symfony\Component\Serializer\Annotation\Groups;
+
 class Task
 {
     /**
      * @var string
+     * @Groups({"habitica", "todoist"})
      */
     private $title;
 
     /**
      * @var \DateTime|null
+     * @Groups({"habitica", "todoist"})
      */
     private $dueDate;
 
     /**
      * @var string
+     * @Groups({"habitica"})
      */
     private $info;
 
     /**
      * @var int
+     * @Groups({"habitica", "todoist"})
      */
     private $priority;
 
     /**
      * @var array
+     * @Groups({"habitica"})
      */
     private $reminders;
 
     /**
      * @var array
+     * @Groups({"habitica"})
      */
     private $checklist;
 
     /**
      * @var Project
+     * @Groups({"habitica", "todoist"})
      */
     private $project;
 
     /**
      * @var bool
+     * @Groups({"habitica", "todoist"})
      */
     private $completed;
 
     /**
      * @var \DateTime
+     * @Groups({"habitica", "todoist"})
      */
     private $createdAt;
 
     /**
      * @var \DateTime
+     * @Groups({"habitica"})
      */
     private $updatedAt;
 
     /**
      * @var \DateTime|null
+     * @Groups({"habitica", "todoist"})
      */
     private $dateCompleted;
-
-    // private function hydrate(array $payload)
-    // {
-    //     $this->metadata->setStatus(Status::HYDRATING);
-    //     $source = $this->metadata->getTaskSource();
-    //     $translatedPayload = Translator::translate($payload, $source);
-    //     foreach ($translatedPayload as $key => $value) {
-    //         $this->$key = $value;
-    //     }
-    //     $this->createdAt = new \DateTime($this->createdAt);
-    //     if ($this->updatedAt !== null) {
-    //         $this->updatedAt = new \DateTime($this->updatedAt);
-    //     }
-    //     if ($this->dateCompleted !== null) {
-    //         $this->dateCompleted = new \DateTime($this->dateCompleted);
-    //     }
-    //     if ($this->dueDate !== null) {
-    //         $this->dueDate = new \DateTime($this->dueDate);
-    //     }
-
-    //     $this->project = Project::getProject($this->project, $source);
-
-    //     $this->metadata->setStatus(Status::READY);
-    // }
 
     /**
      * Get the value of title.
