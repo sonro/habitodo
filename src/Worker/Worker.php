@@ -6,6 +6,9 @@ use App\Tools\Locker;
 use Psr\Log\LoggerInterface;
 use Predis\Client;
 use App\Tools\CredentialsInterface;
+use JMS\Serializer\SerializerInterface;
+use App\Model\Task;
+use JMS\Serializer\SerializationContext;
 
 class Worker
 {
@@ -39,11 +42,17 @@ class Worker
      */
     private $prefix;
 
+    /**
+     * @var SerializerInterface
+     */
+    private $serializer;
+
     public function __construct(
         Locker $locker,
         LoggerInterface $logger,
         Client $redis,
         CredentialsInterface $credentials,
+        SerializerInterface $serializer,
         string $prefix
     ) {
         $this->locker = $locker;
@@ -51,12 +60,31 @@ class Worker
         $this->redis = $redis;
         $this->prefix = $prefix;
         $this->credentials = $credentials;
+        $this->serializer = $serializer;
     }
 
     public function run(): int
     {
         $errorCode = 0;
         $lockerKey = null;
+
+        // test Task
+        $task = new Task();
+        $task->setTitle('Test Task');
+        $task->setChecklist([]);
+        $task->setReminders([]);
+        $task->setCreatedAt(new \DateTime());
+        $task->setUpdatedAt($task->getCreatedAt());
+        $task->setInfo('More infomation');
+        $task->setPriority(1);
+        $project = $this->credentials->getProjects()['life'];
+        $task->setProject($project);
+
+        $json = $this->serializer->serialize($task, 'json', SerializationContext::create()->setGroups([
+            'Default',
+        ]));
+        dump($json);
+        die;
 
         try {
             // assign id and aquire lock
