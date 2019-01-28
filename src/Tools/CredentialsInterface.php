@@ -45,7 +45,7 @@ class CredentialsInterface
      */
     public function getProjects()
     {
-        return $this->credentials->getTaskApps();
+        return $this->credentials->getProjects();
     }
 
     public function getObject()

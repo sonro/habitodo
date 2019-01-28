@@ -2,59 +2,83 @@
 
 namespace App\Model;
 
+use JMS\Serializer\Annotation as JMS;
+
 class Task
 {
     /**
+     * @JMS\Type("string")
+     *
      * @var string
      */
     private $title;
 
     /**
+     * @JMS\Type("DateTime")
+     *
      * @var \DateTime|null
      */
     private $dueDate;
 
     /**
+     * @JMS\Type("string")
+     *
      * @var string
      */
     private $info;
 
     /**
+     * @JMS\Type("int")
+     *
      * @var int
      */
     private $priority;
 
     /**
+     * @JMS\Type("array")
+     *
      * @var array
      */
     private $reminders;
 
     /**
+     * @JMS\Groups({"habitica"})
+     *
      * @var array
      */
     private $checklist;
 
     /**
+     * @JMS\Type("App\Model\Project")
+     *
      * @var Project
      */
     private $project;
 
     /**
+     * @JMS\Type("bool")
+     *
      * @var bool
      */
     private $completed;
 
     /**
+     * @JMS\Type("DateTime")
+     *
      * @var \DateTime
      */
     private $createdAt;
 
     /**
+     * @JMS\Type("DateTime")
+     *
      * @var \DateTime
      */
     private $updatedAt;
 
     /**
+     * @JMS\Type("DateTime")
+     *
      * @var \DateTime|null
      */
     private $dateCompleted;
