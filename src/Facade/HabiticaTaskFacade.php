@@ -1,60 +1,90 @@
 <?php
 
-namespace App\Model;
+namespace App\Facade;
 
-class Task
+use JMS\Serializer\Annotation as JMS;
+use App\Model\Project;
+use App\Model\Task;
+
+class HabiticaTaskFacade
 {
     /**
+     * @JMS\Type("string")
+     * @JMS\SerializedName("text")
+     *
      * @var string
      */
     private $title;
 
     /**
+     * @JMS\Type("DateTime")
+     * @JMS\SerializedName("date")
+     *
      * @var \DateTime|null
      */
     private $dueDate;
 
     /**
+     * @JMS\Type("string")
+     * @JMS\SerializedName("notes")
+     *
      * @var string
      */
     private $info;
 
     /**
+     * @JMS\Type("string")
+     *
      * @var int
      */
     private $priority;
 
     /**
+     * @JMS\Type("array")
+     *
      * @var array
      */
     private $reminders;
 
     /**
+     * @JMS\Type("array")
+     *
      * @var array
      */
     private $checklist;
 
     /**
-     * @var array
+     * @JMS\Type("array<string>")
+     * @JMS\SerializedName("tags")
+     *
+     * @var Project
      */
     private $project;
 
     /**
+     * @JMS\Type("bool")
+     *
      * @var bool
      */
     private $completed;
 
     /**
+     * @JMS\Type("DateTime")
+     *
      * @var \DateTime
      */
     private $createdAt;
 
     /**
+     * @JMS\Type("DateTime")
+     *
      * @var \DateTime
      */
     private $updatedAt;
 
     /**
+     * @JMS\Type("DateTime")
+     *
      * @var \DateTime|null
      */
     private $dateCompleted;
@@ -134,23 +164,43 @@ class Task
     /**
      * Get the value of priority.
      *
-     * @return int
+     * @return string
      */
     public function getPriority()
     {
-        return $this->priority;
+        $priority = '0.1';
+        switch ($this->priority) {
+            case 1:
+                $priority = '1';
+                break;
+            case 2:
+                $priority = '1.5';
+                break;
+            case 3:
+            case 4:
+                $priority = '2';
+                break;
+        }
+
+        return $priority;
     }
 
     /**
      * Set the value of priority.
      *
-     * @param int $priority
+     * @param $priority
      *
      * @return self
      */
-    public function setPriority(int $priority)
+    public function setPriority($priority)
     {
-        $this->priority = $priority;
+        if ($priority == '0.1' || $priority == '1') {
+            $this->priority = 1;
+        } elseif ($priority == '1.5') {
+            $this->priority = 2;
+        } else {
+            $this->priority = 3;
+        }
 
         return $this;
     }
@@ -206,23 +256,24 @@ class Task
     /**
      * Get the value of project.
      *
-     * @return Project
+     * @return array
      */
     public function getProject()
     {
-        return $this->project;
+        return [$this->project->getHabiticaId()];
     }
 
     /**
      * Set the value of project.
      *
-     * @param Project $project
+     * @param array $project
      *
      * @return self
      */
-    public function setProject(Project $project)
+    public function setProject(array $project)
     {
-        $this->project = $project;
+        $this->project = new Project();
+        $this->project->setHabiticaId($project);
 
         return $this;
     }
@@ -232,7 +283,7 @@ class Task
      *
      * @return bool
      */
-    public function getCompleted()
+    public function isCompleted()
     {
         return $this->completed;
     }
@@ -321,5 +372,19 @@ class Task
         $this->dateCompleted = $dateCompleted;
 
         return $this;
+    }
+
+    public static function createFromTask(Task $task)
+    {
+        $properties = array_keys(get_class_vars(HabiticaTaskFacade::class));
+        $facade = new self();
+        foreach ($properties as $property) {
+            $property = ucfirst($property);
+            $taskMethod = 'get'.$property;
+            $facadeMethod = 'set'.$property;
+            $facade->$facadeMethod($task->$taskMethod());
+        }
+
+        return $facade;
     }
 }

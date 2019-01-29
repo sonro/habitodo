@@ -8,7 +8,7 @@ use Predis\Client;
 use App\Tools\CredentialsInterface;
 use JMS\Serializer\SerializerInterface;
 use App\Model\Task;
-use JMS\Serializer\SerializationContext;
+use App\Facade\HabiticaTaskFacade;
 
 class Worker
 {
@@ -80,10 +80,8 @@ class Worker
         $project = $this->credentials->getProjects()['life'];
         $task->setProject($project);
 
-        $json = $this->serializer->serialize($task, 'json', SerializationContext::create()->setGroups([
-            'Default',
-        ]));
-        dump($json);
+        $habiticaTask = HabiticaTaskFacade::createFromTask($task);
+        dump($habiticaTask);
         die;
 
         try {
