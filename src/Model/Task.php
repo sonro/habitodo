@@ -257,7 +257,7 @@ class Task
      *
      * @return bool
      */
-    public function getCompleted()
+    public function isCompleted()
     {
         return $this->completed;
     }

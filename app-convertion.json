@@ -1,8 +1,35 @@
 {
+    "habitica": {
+        "App\\Model\\Task": {
+            "title": "text",
+            "dueDate": "date",
+            "info": "notes",
+            "priority": "priority",
+            "reminders": "reminders",
+            "checklist": "checklist",
+            "project": "tags",
+            "completed": "completed",
+            "createdAt": "createdAt",
+            "updatedAt": "updatedAt",
+            "dateCompleted": "dateCompleted"
+        }
+    },
+    "todoist": {
+        "App\\Model\\Task": {
+            "title": "content",
+            "dueDate": "due_date_utc",
+            "priority": "priority",
+            "project": "project_id",
+            "completed": "checked",
+            "createdAt": "date_added",
+            "dateCompleted": "date_completed"
+        }
+    },
     "test": {
         "App\\Model\\Task": {
             "title": "convertedTitle",
-            "dueDate": "date"
+            "dueDate": "date",
+            "project": "tags"
         }
     }
 }

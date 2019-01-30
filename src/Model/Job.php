@@ -42,6 +42,11 @@ class Job
     private $targets;
 
     /**
+     * @var array
+     */
+    private $data;
+
+    /**
      * Get the value of state.
      *
      * @return int
@@ -157,6 +162,30 @@ class Job
     public function setTargets(array $targets)
     {
         $this->targets = $targets;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of data.
+     *
+     * @return array
+     */
+    public function getData()
+    {
+        return $this->data;
+    }
+
+    /**
+     * Set the value of data.
+     *
+     * @param array $data
+     *
+     * @return self
+     */
+    public function setData(array $data)
+    {
+        $this->data = $data;
 
         return $this;
     }
