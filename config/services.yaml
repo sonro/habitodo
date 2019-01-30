@@ -6,6 +6,7 @@
 parameters:
     env(APP_PREFIX): 'habitodo'
     credentials_file: '%kernel.project_dir%/credentials.json'
+    convertion_file: '%kernel.project_dir%/app-convertion.json'
 
 services:
     # default configuration for services in *this* file
@@ -50,4 +51,8 @@ services:
     App\Tools\CredentialsInterface:
         arguments:
             $credentialsFile: '%credentials_file%'
+
+    App\Serializer\Normalizer:
+        arguments:
+            $convertionFile: '%convertion_file%'
 

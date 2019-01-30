@@ -1,0 +1,8 @@
+{
+    "test": {
+        "App\\Model\\Task": {
+            "title": "convertedTitle",
+            "dueDate": "date"
+        }
+    }
+}

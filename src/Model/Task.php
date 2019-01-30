@@ -6,6 +6,7 @@ use JMS\Serializer\Annotation as JMS;
 
 class Task
 {
+    use ModelTrait;
     /**
      * @JMS\Type("string")
      *
@@ -256,7 +257,7 @@ class Task
      *
      * @return bool
      */
-    public function isCompleted()
+    public function getCompleted()
     {
         return $this->completed;
     }

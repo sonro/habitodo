@@ -60,6 +60,7 @@ class Worker
 
         try {
             // assign id and aquire lock
+            $this->redis->ping();
             $workerId = $this->redis->incr($this->prefix.'-id');
             $this->logger->info('Worker created', ['workerId' => $workerId]);
             $lockerKey = $this->locker->lock(30, true);
