@@ -2,6 +2,6 @@
 
 namespace App\ApiRequest;
 
-class HabiticaRequest
+class ApiRequesterFactory
 {
 }
