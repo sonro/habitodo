@@ -17,7 +17,7 @@
     "todoist": {
         "App\\Model\\Task": {
             "title": "content",
-            "dueDate": "due_date_utc",
+            "dueDate": "due_datetime",
             "priority": "priority",
             "project": "project_id",
             "completed": "checked",

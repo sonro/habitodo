@@ -4,6 +4,7 @@ namespace App\Tools;
 
 use App\Model\Credentials;
 use JMS\Serializer\SerializerInterface;
+use App\Model\Project;
 
 class CredentialsInterface
 {
@@ -46,6 +47,18 @@ class CredentialsInterface
     public function getProjects()
     {
         return $this->credentials->getProjects();
+    }
+
+    /**
+     * Get a project accoding to it's name.
+     *
+     * @param string $name
+     *
+     * @return Project
+     */
+    public function getProject(string $name): Project
+    {
+        return ($this->credentials->getProjects())[$name];
     }
 
     public function getObject()

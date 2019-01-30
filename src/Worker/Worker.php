@@ -59,8 +59,10 @@ class Worker
         $lockerKey = null;
 
         try {
-            // assign id and aquire lock
+            // check redis connection
             $this->redis->ping();
+
+            // assign id and aquire lock
             $workerId = $this->redis->incr($this->prefix.'-id');
             $this->logger->info('Worker created', ['workerId' => $workerId]);
             $lockerKey = $this->locker->lock(30, true);

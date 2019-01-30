@@ -44,11 +44,15 @@ services:
             $prefix: '%env(APP_PREFIX)%-worker'
     
     App\Tools\CredentialsInterface:
+        public: true
         arguments:
             $credentialsFile: '%credentials_file%'
 
     App\Serializer\NameConvertor:
-        public: ture
+        public: true
         arguments:
             $convertionFile: '%convertion_file%'
+
+    App\Serializer\TaskNormalizer:
+        public: true
 

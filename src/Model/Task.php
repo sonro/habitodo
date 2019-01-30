@@ -6,7 +6,6 @@ use JMS\Serializer\Annotation as JMS;
 
 class Task
 {
-    use ModelTrait;
     /**
      * @JMS\Type("string")
      *
