@@ -14,7 +14,6 @@ class Job
     const TYPE_UNCOMPLETE = 4;
     const TYPE_DELETE = 5;
     const TYPE_CHECKLIST_ITEM_COMPLETE = 6;
-    const TYPE_CHECKLIST_ITEM_UNCOMPLETE = 7;
 
     /**
      * @var int
@@ -45,6 +44,11 @@ class Job
      * @var array
      */
     private $data;
+
+    /**
+     * @var array
+     */
+    private $taskIds;
 
     /**
      * Get the value of state.
@@ -186,6 +190,57 @@ class Job
     public function setData(array $data)
     {
         $this->data = $data;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of taskIds.
+     *
+     * @return array
+     */
+    public function getTaskIds()
+    {
+        return $this->taskIds;
+    }
+
+    /**
+     * Set the value of taskIds.
+     *
+     * @param array $taskIds
+     *
+     * @return self
+     */
+    public function setTaskIds(array $taskIds)
+    {
+        $this->taskIds = $taskIds;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of a specific task id.
+     *
+     * @param string $taskName
+     *
+     * @return array
+     */
+    public function getTaskId(string $taskName)
+    {
+        return $this->taskIds[$taskName];
+    }
+
+    /**
+     * Add a task id.
+     *
+     * @param string $taskName
+     * @param string $id
+     *
+     * @return self
+     */
+    public function addTaskId(string $taskName, string $id)
+    {
+        $this->taskIds[$taskName] = $id;
 
         return $this;
     }

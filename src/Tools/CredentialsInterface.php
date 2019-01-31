@@ -5,6 +5,7 @@ namespace App\Tools;
 use App\Model\Credentials;
 use JMS\Serializer\SerializerInterface;
 use App\Model\Project;
+use App\Model\TaskApp;
 
 class CredentialsInterface
 {
@@ -59,6 +60,11 @@ class CredentialsInterface
     public function getProject(string $name): Project
     {
         return ($this->credentials->getProjects())[$name];
+    }
+
+    public function getTaskApp(string $name): TaskApp
+    {
+        return ($this->credentials->getTaskApps())[$name];
     }
 
     public function getObject()

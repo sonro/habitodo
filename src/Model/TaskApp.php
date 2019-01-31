@@ -16,6 +16,13 @@ class TaskApp
     /**
      * @JMS\Type("string")
      *
+     * @var string|null
+     */
+    private $userId;
+
+    /**
+     * @JMS\Type("string")
+     *
      * @var string
      */
     private $apiToken;
@@ -126,6 +133,30 @@ class TaskApp
     public function setClientSecret($clientSecret)
     {
         $this->clientSecret = $clientSecret;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of userId.
+     *
+     * @return string|null
+     */
+    public function getUserId()
+    {
+        return $this->userId;
+    }
+
+    /**
+     * Set the value of userId.
+     *
+     * @param string|null $userId
+     *
+     * @return self
+     */
+    public function setUserId($userId)
+    {
+        $this->userId = $userId;
 
         return $this;
     }
